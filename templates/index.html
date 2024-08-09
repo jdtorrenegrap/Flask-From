@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>Formulario</h1>
+    
+    <form action="/formulario/registro" method="post">
+        <input type="number" name="cedula" placeholder="Cédula" required>
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="apellido" placeholder="Apellido" required>
+        <input type="number" name="telefono" placeholder="Teléfono" required>
+        <input type="email" name="correo" placeholder="Correo" required>
+        <button type="submit">Enviar</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Operación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.cedula }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td>
+                    <form action="/formulario/eliminar/usuarios/{{ usuario.id }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="delete-button">Eliminar</button>
+                    </form
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <footer>
+        <p>&copy; 2024 toree. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
